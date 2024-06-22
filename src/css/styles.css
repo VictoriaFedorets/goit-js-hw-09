@@ -23,3 +23,48 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1440px;
+  max-height: 696px;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px 156px;
+  gap: 24px;
+  list-style: none;
+}
+
+.gallery-link {
+  display: block;
+  margin: 0 auto;
+}
+
+.gallery-image {
+  display: block;
+  max-width: 360px;
+  height: auto;
+  transition: transform 250ms ease-in-out;
+}
+
+.gallery-image:hover {
+  transform: scale(1.04);
+}
+
+.gallery-link:hover {
+  cursor: zoom-in;
+}
