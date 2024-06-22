@@ -1,8 +1,3 @@
-// Описаний в документації
-import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 const images = [
   {
     preview:
@@ -72,6 +67,7 @@ const images = [
 const list = document.querySelector('.gallery');
 
 list.insertAdjacentHTML('afterbegin', createMarkup(images));
+list.addEventListener('click', handlerGetImages);
 
 function createMarkup(arr) {
   return arr
@@ -82,6 +78,7 @@ function createMarkup(arr) {
     <img
       class="gallery-image"
       src="${preview}"
+      data-source="${original}"
       alt="${description}"
     />
   </a>
@@ -91,8 +88,20 @@ function createMarkup(arr) {
     .join('');
 }
 
-const galleryLightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-});
+function handlerGetImages(evt) {
+  evt.preventDefault();
+  if (evt.currentTarget === evt.target) {
+    return;
+  }
+  const parent = evt.target.closest('.gallery-image');
+  const currentOriginal = parent.dataset.source;
+  const currentDescription = parent.dataset.description;
+
+  const instance = basicLightbox.create(`
+    <div class="modal">
+      <img class="modal-img" src="${currentOriginal}" alt="${currentDescription}" width="1112" height="640">
+    </div>
+  `);
+
+  instance.show();
+}
